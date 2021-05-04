@@ -14,7 +14,7 @@ async function appelDesProduits() {
 
     for (var i = 0; i < responseJson.length; i++) {
       let teddy = responseJson[i];
-      var teddyId = teddy._id;
+      
       creerProduit(teddy);
       // console.log(teddy);
     }
@@ -55,7 +55,7 @@ appelDesProduits();
 
 // Création de la fonction qui va créer une card pour chaque produit présent sur l'API.
 
-function creerProduit(teddy, lienVersPageProduit) {
+function creerProduit(teddy) {
 
   // Création de l'encadré correspondant à un produit
 
@@ -95,7 +95,7 @@ function creerProduit(teddy, lienVersPageProduit) {
 
     // Création du bouton. Au clic redirigera vers la page produit en question
 
-    lienVersPageProduit = document.createElement("a");
+    let lienVersPageProduit = document.createElement("a");
     let boutonVersPageProduit = document.createElement("button");
     boutonVersPageProduit.textContent = "Tout savoir sur " + teddy.name;
     boutonVersPageProduit.setAttribute('class','btn btn-primary')
@@ -104,25 +104,31 @@ function creerProduit(teddy, lienVersPageProduit) {
     infosArticle.appendChild(lienVersPageProduit);
     lienVersPageProduit.appendChild(boutonVersPageProduit);
 
-    // Création de l'url unique pointée par le bouton
+    function urlUnique(lienVersPageProduit){
+      // Création de l'url unique pointée par le bouton
 
-    let adresseActuelle = window.location.pathname;
-    // console.log(adresseActuelle);
+      let adresseActuelle = window.location.pathname;
+      // console.log(adresseActuelle);
 
-    let spliteAdresse = adresseActuelle.split("/");
-    // console.log(spliteAdresse);
+      let spliteAdresse = adresseActuelle.split("/");
+      // console.log(spliteAdresse);
 
-    let indexSansLocal = spliteAdresse.pop();
-    // console.log(indexSansLocal);
+      let indexSansLocal = spliteAdresse.pop();
+      // console.log(indexSansLocal);
 
-    let productHtml = window.location.origin + indexSansLocal.replace(indexSansLocal, "/product.html");
-    // console.log(productHtml);
+      let productHtml =
+        window.location.origin +
+        indexSansLocal.replace(indexSansLocal, "/product.html");
+      // console.log(productHtml);
 
-    newUrl = new URL(productHtml);
-    // console.log(newUrl);
+      let newUrl = new URL(productHtml);
+      // console.log(newUrl);
 
-    newUrl.searchParams.append("id", teddy._id);
-    lienVersPageProduit.href = newUrl;
+      newUrl.searchParams.append("id", teddy._id);
+      lienVersPageProduit.href = newUrl;
+    }
+
+    urlUnique(lienVersPageProduit)
 
 }
 
