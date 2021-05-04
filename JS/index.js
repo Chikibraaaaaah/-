@@ -55,7 +55,7 @@ appelDesProduits();
 
 // Création de la fonction qui va créer une card pour chaque produit présent sur l'API.
 
-function creerProduit(teddy, newUrl) {
+function creerProduit(teddy, lienVersPageProduit) {
 
   // Création de l'encadré correspondant à un produit
 
@@ -95,7 +95,7 @@ function creerProduit(teddy, newUrl) {
 
     // Création du bouton. Au clic redirigera vers la page produit en question
 
-    let lienVersPageProduit = document.createElement("a");
+    lienVersPageProduit = document.createElement("a");
     let boutonVersPageProduit = document.createElement("button");
     boutonVersPageProduit.textContent = "Tout savoir sur " + teddy.name;
     boutonVersPageProduit.setAttribute('class','btn btn-primary')
