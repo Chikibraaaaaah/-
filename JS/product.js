@@ -12,7 +12,7 @@ async function appelDesProduits (){
     for (var i = 0; i < responseJson.length; i++) {
       let teddy = responseJson[i];
       let teddyName = teddy.name;
-      let teddyId = teddy._id;
+      var teddyId = teddy._id;
       let teddyPrice = teddy.price / 100;
       let teddyColor = teddy.colors;
       let teddyImg = teddy.imageUrl;

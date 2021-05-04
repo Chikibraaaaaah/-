@@ -14,7 +14,7 @@ async function appelDesProduits() {
 
     for (var i = 0; i < responseJson.length; i++) {
       let teddy = responseJson[i];
-      
+      var teddyId = teddy._id;
       creerProduit(teddy);
       // console.log(teddy);
     }
@@ -55,7 +55,7 @@ appelDesProduits();
 
 // Création de la fonction qui va créer une card pour chaque produit présent sur l'API.
 
-function creerProduit(teddy) {
+function creerProduit(teddy, newUrl) {
 
   // Création de l'encadré correspondant à un produit
 
@@ -104,31 +104,25 @@ function creerProduit(teddy) {
     infosArticle.appendChild(lienVersPageProduit);
     lienVersPageProduit.appendChild(boutonVersPageProduit);
 
-    function urlUnique(lienVersPageProduit){
-      // Création de l'url unique pointée par le bouton
+    // Création de l'url unique pointée par le bouton
 
-      let adresseActuelle = window.location.pathname;
-      // console.log(adresseActuelle);
+    let adresseActuelle = window.location.pathname;
+    // console.log(adresseActuelle);
 
-      let spliteAdresse = adresseActuelle.split("/");
-      // console.log(spliteAdresse);
+    let spliteAdresse = adresseActuelle.split("/");
+    // console.log(spliteAdresse);
 
-      let indexSansLocal = spliteAdresse.pop();
-      // console.log(indexSansLocal);
+    let indexSansLocal = spliteAdresse.pop();
+    // console.log(indexSansLocal);
 
-      let productHtml =
-        window.location.origin +
-        indexSansLocal.replace(indexSansLocal, "/product.html");
-      // console.log(productHtml);
+    let productHtml = window.location.origin + "/product.html";
+    console.log(productHtml);
 
-      let newUrl = new URL(productHtml);
-      // console.log(newUrl);
+    newUrl = new URL(productHtml);
+    // console.log(newUrl);
 
-      newUrl.searchParams.append("id", teddy._id);
-      lienVersPageProduit.href = newUrl;
-    }
-
-    urlUnique(lienVersPageProduit)
+    newUrl.searchParams.append("id", teddy._id);
+    lienVersPageProduit.href = newUrl;
 
 }
 
