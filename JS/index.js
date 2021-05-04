@@ -115,7 +115,9 @@ function creerProduit(teddy, newUrl) {
     let indexSansLocal = spliteAdresse.pop();
     // console.log(indexSansLocal);
 
-    let productHtml = window.location.origin +  "/product.html";
+    let productHtml =
+      window.location.origin +
+      window.location.pathname.replace("index", "product");
     // console.log(productHtml);
 
     newUrl = new URL(productHtml);
