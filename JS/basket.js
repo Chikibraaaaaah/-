@@ -182,7 +182,8 @@ if (panierParse == null || totalArticle == 0) {
   let title = document.createElement("h1");
   main.appendChild(title);
   title.textContent = "Votre commande en cours";
-  title.setAttribute("class", "text-center");
+  
+  title.setAttribute("class", "text-center mt-4 mb-5");
 
   // Création de la première ligne
 
@@ -210,7 +211,7 @@ if (panierParse == null || totalArticle == 0) {
     // Apercu de l'achat
     let apercuAchat = document.createElement("img");
     ligne.appendChild(apercuAchat);
-    apercuAchat.setAttribute("class", "col-xl-3 text-center border");
+    apercuAchat.setAttribute("class", "col-xl-3 text-center ");
     apercuAchat.src = articleUnitaire.img;
     apercuAchat.style.margin = "auto auto";
 
@@ -218,14 +219,14 @@ if (panierParse == null || totalArticle == 0) {
     let designationAchat = document.createElement("p");
     ligne.appendChild(designationAchat);
     designationAchat.setAttribute("class", "col-xl-2 text-center");
-    designationAchat.innerHTML = "Article : </br> " + articleUnitaire.name;
+    designationAchat.innerHTML = "<em>Article</em> : </br> " + articleUnitaire.name;
     designationAchat.style.margin = "auto auto";
 
     // Couleur de l'achat
     let couleurChoisie = document.createElement("p");
     ligne.appendChild(couleurChoisie);
     couleurChoisie.setAttribute("class", "col-xl-2 text-center");
-    couleurChoisie.innerHTML = "Couleur : </br>" + articleUnitaire.couleur;
+    couleurChoisie.innerHTML = "<em>Couleur</em> : </br>" + articleUnitaire.couleur;
     couleurChoisie.style.margin = "auto auto";
 
     // Quantité commandée
@@ -233,7 +234,7 @@ if (panierParse == null || totalArticle == 0) {
     ligne.appendChild(qtyCommande);
     qtyCommande.setAttribute("type", "number");
     qtyCommande.setAttribute("class", "col-xl-2 text-center ");
-    qtyCommande.innerHTML = "Quantité :</br>" + articleUnitaire.quantite;
+    qtyCommande.innerHTML = "<em>Quantité</em> :</br>" + articleUnitaire.quantite;
     qtyCommande.style.margin = "auto auto";
 
     // Sous-total de l'article choisi
@@ -241,7 +242,7 @@ if (panierParse == null || totalArticle == 0) {
     ligne.appendChild(sousTotalAchat);
     sousTotalAchat.setAttribute("class", "col-xl-2  text-center");
     sousTotalAchat.innerHTML =
-      "Sous-total :</br>" + articleUnitaire.sousTotal + " €";
+      "<em>Sous-total</em> :</br>" + articleUnitaire.sousTotal + " €";
     sousTotalAchat.style.margin = "auto auto";
 
     // Création d'un bouton pour supprimer la ligne
@@ -250,16 +251,28 @@ if (panierParse == null || totalArticle == 0) {
     let conteneurBoutonSupp = document.createElement("div");
     ligne.appendChild(conteneurBoutonSupp);
     conteneurBoutonSupp.style.margin = "auto auto";
-    conteneurBoutonSupp.setAttribute("class", "col-xl-1 text-center");
+    conteneurBoutonSupp.setAttribute("class", "col-xl-1 ");
+
 
     // Le bouton
     let supprimerArticle = document.createElement("button");
     conteneurBoutonSupp.appendChild(supprimerArticle);
-    supprimerArticle.setAttribute("class", " col-8 ");
+    supprimerArticle.setAttribute("class", " col  ");
+    supprimerArticle.style.backgroundColor = "white"
+     supprimerArticle.style.border = "white";
+     supprimerArticle.addEventListener('mouseover',function (event){
+       event.target.style.color = "red";
+       setTimeout(function(){
+         event.target.style.color = "blue"
+       },500)
+     },false)
+    
 
     // Illustration poubelle utilisée
     let logoPoubelle = document.createElement("i");
-    logoPoubelle.setAttribute("class", "far fa-trash-alt");
+    logoPoubelle.setAttribute("class", "far fa-trash-alt ");
+  
+    logoPoubelle.style.color = "blue"
     supprimerArticle.appendChild(logoPoubelle);
 
     // ---------------------------                           FONCTION SUPPRIMER UN ARTICLE
@@ -305,15 +318,18 @@ if (panierParse == null || totalArticle == 0) {
     // Récupération des deux paramètres
     totalArticle = sessionStorage.getItem("Total Article");
     montantTotal = sessionStorage.getItem("Montant Total");
+    pRecapNbArticle.style.marginTop = "20px";
     pRecapNbArticle.textContent = "Nombre d'article(s): " + totalArticle;
+    pRecapNbArticle.setAttribute('class','col-8')
 
     // Paragraphe contenant le prix avant condition pour affichage message lié au port et au nombre d'article dans panier
     pSousTotal.textContent = "Sous-total:" + " " + montantTotal + " €";
+    pSousTotal.setAttribute('class','col-8')
     if (montantTotal >= 150) {
       fraisDePort.innerHTML =
         '<i class="fas fa-paw" id="papate" ></i> Vous bénéficiez des frais de port offerts';
       let papate = document.getElementById("papate");
-      papate.style.color = "green";
+      papate.style.color = "green";fraisDePort.setAttribute('class','col')
     }
 
     // Si le panier retombe à ZERO, on cache les précdants éléments, on appelle la fonction qui affiche le panier vide
@@ -331,12 +347,15 @@ if (panierParse == null || totalArticle == 0) {
         "€ de commande pour bénéficier de la livraison gratuite. </br> Frais estimés à 10€ ";
       let coeur = document.getElementById("coeur");
       coeur.style.color = "pink";
+      
     }
     if (montantTotal < 150) {
       recapTotal.textContent =
         "Total: " + " " + (parseInt(montantTotal) + 10) + " " + " €";
+        recapTotal.setAttribute('class','col')
     } else {
       recapTotal.textContent = "Total: " + parseInt(montantTotal) + " " + " €";
+      recapTotal.setAttribute("class", "col");
     }
   }
 
@@ -348,17 +367,19 @@ if (panierParse == null || totalArticle == 0) {
 
   let pRecapNbArticle = document.createElement("p");
   divRecap.appendChild(pRecapNbArticle);
-  pRecapNbArticle.setAttribute("class", "col-4");
+  pRecapNbArticle.setAttribute("class", "col-3");
 
   let pSousTotal = document.createElement("p");
   divRecap.appendChild(pSousTotal);
-  pSousTotal.setAttribute("class", "col-4");
+  pSousTotal.setAttribute("class", "col-3");
 
   let fraisDePort = document.createElement("p");
   divRecap.appendChild(fraisDePort);
+  fraisDePort.setAttribute('class','col-6')
 
   let recapTotal = document.createElement("p");
   divRecap.appendChild(recapTotal);
+  recapTotal.setAttribute('class','col-3')
 
   // Appelle de la fonction pour le premier passage de la page product, à panier
   refresh();
@@ -371,6 +392,10 @@ main.appendChild(formulaire);
 formulaire.setAttribute("class", "container border-top");
 formulaire.setAttribute("method", "post");
 formulaire.style.height = "auto";
+let formTitle = document.createElement('h3');
+formulaire.appendChild(formTitle);
+formTitle.textContent = "Vous y êtes presque !";
+formTitle.setAttribute('class','text-center mt-2')
 
 // Espace dédié au nom
 
@@ -381,7 +406,7 @@ divNom.setAttribute("class", "form-group mt-4 row");
 const labelPrenom = document.createElement("label");
 divNom.appendChild(labelPrenom);
 labelPrenom.setAttribute("for", "identity-first");
-labelPrenom.setAttribute("class", "col-3");
+labelPrenom.setAttribute("class", "col");
 labelPrenom.textContent = "Prénom:";
 
 // Input Prénom
@@ -391,13 +416,15 @@ divNom.appendChild(inputPrenom);
 inputPrenom.setAttribute("type", "text");
 inputPrenom.setAttribute("class", "form-control col");
 inputPrenom.setAttribute("id", "identity-first");
-inputPrenom.placeholder = "Hugo TSR";
+inputPrenom.placeholder = "Hugo ";
 inputPrenom.minLength = 2;
+
 
 const labelNom = document.createElement("label");
 divNom.appendChild(labelNom);
 labelNom.setAttribute("for", "identity-last");
-labelNom.setAttribute("class", "col-3");
+labelNom.setAttribute("class", "col");
+labelNom.style.marginLeft = "20%"
 labelNom.textContent = "Nom:";
 
 // Input Nom
@@ -409,7 +436,7 @@ inputNom.setAttribute("class", "form-control col");
 inputNom.setAttribute("id", "identity-last");
 inputNom.placeholder = "TSR";
 inputNom.required;
-inputNom.autofocus;
+inputPrenom.autofocus;
 
 // Partie adresse de livraison
 
@@ -467,6 +494,7 @@ inputFactu.setAttribute("type", "text");
 inputFactu.setAttribute("class", "form-control");
 inputFactu.setAttribute("id", "Factu");
 inputFactu.placeholder = "456 Rue Orinoco";
+inputFactu.style.backgroundColor = "#E8FDFE";
 
 const smallFactu = document.createElement("small");
 labelFactu.appendChild(smallFactu);
@@ -486,6 +514,7 @@ villeFactu.setAttribute("type", "text");
 villeFactu.setAttribute("class", "form-control");
 villeFactu.setAttribute("id", "adresseFactu");
 villeFactu.placeholder = "Sainte-Marie-de-Ré";
+villeFactu.style.backgroundColor = "#E8FDFE";
 
 // Partie adresse mail
 

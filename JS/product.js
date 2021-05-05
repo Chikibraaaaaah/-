@@ -55,7 +55,8 @@ async function appelDesProduits (){
 
         const infosArticle = document.createElement("figcaption");
         article.appendChild(infosArticle);
-        infosArticle.setAttribute("class", "col col-xl-6 card-body");
+        infosArticle.setAttribute("class", "col col-xl-6 card-body border");
+        
 
         const nomArticle = document.createElement("h2");
         infosArticle.appendChild(nomArticle);
@@ -69,7 +70,7 @@ async function appelDesProduits (){
         const descriptionArticle = document.createElement("p");
         infosArticle.appendChild(descriptionArticle);
         descriptionArticle.textContent = teddy.description;
-        descriptionArticle.setAttribute("class", "card-body");
+        descriptionArticle.setAttribute("class", "card-body ");
 
         // Gestion des quantités
 
@@ -166,6 +167,23 @@ async function appelDesProduits (){
         boutonVoirPanier.textContent = "Voir mon panier";
         boutonVoirPanier.setAttribute("class", "btn btn-secondary");
 
+         boutonAjouterAuPanier.style.marginBottom = "12px";
+         let spanBtn = document.createElement("span");
+        //  spanBtn.setAttribute('class','col-')
+        spanBtn.style.marginLeft = "20%";
+ 
+         main.appendChild(spanBtn);
+
+         function validerArticle() {
+           spanBtn.animate(
+             [{ opacity: 0 }, { opacity: 0.9, offset: 0.7 }, { opacity: 1 }],
+             2500
+           );
+           spanBtn.style.opacity = 0;
+         }
+
+        
+
         // Ne reste plus qu'à pouvoir ajouter le produit au panier.
         // Il faut donc créer la classe Teddy avec infos id, couleur, quantité et sous-total que nous stockerons dans le storage pour les afficher dans le panier"
 
@@ -184,18 +202,7 @@ async function appelDesProduits (){
 
      
 
-            boutonAjouterAuPanier.style.marginBottom = "12px"
-           let spanBtn = document.createElement("span");
-           infosArticle.appendChild(spanBtn);
-          
-          
-          function validerArticle(){
-             spanBtn.animate(
-               [{ opacity: 0 }, { opacity: 0.9, offset: 0.7 }, { opacity: 1 }],
-              2500
-             );
-             spanBtn.style.opacity = 0;
-          }
+           
           
 
         // Au click, on va creer et envoyer en session storage les données reçues.
@@ -444,20 +451,21 @@ if (totalArticle == null){
 let main = document.createElement("main");
 body.appendChild(main);
 main.setAttribute("id", "main");
-main.setAttribute("class", "container");
-
+main.setAttribute("class", "container ");
+main.style.marginTop = "7%"
 let conteneurProduit = document.createElement("div");
 conteneurProduit.setAttribute("class", "row");
 conteneurProduit.style.display = "flex";
 conteneurProduit.style.flexWrap = "wrap";
 // conteneurProduit.style.justifyContent = "space-around"
 main.appendChild(conteneurProduit);
+main.style.minHeight = "620px"
 
 // FOOTER
 
 let footer = document.createElement("footer");
 body.appendChild(footer);
-footer.setAttribute("class", "py-5 bg-dark");
+footer.setAttribute("class", "col py-5 bg-dark");
 
 let containerFooter = document.createElement("div");
 containerFooter.setAttribute("class", "container");
@@ -467,3 +475,4 @@ let pFooter = document.createElement("p");
 containerFooter.appendChild(pFooter);
 pFooter.setAttribute("class", "m-0 text-center text-white");
 pFooter.textContent = "Copyright By Chikibraaaaaah 2021";
+

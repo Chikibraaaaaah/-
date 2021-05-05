@@ -1,10 +1,10 @@
-// Ajout des styles de la page
+//------------------------------------------------------------ CREATION HEADER FOOTER 
 
 // Pour pouvoir créer les élements tel que le Header, il faut d'abord récupérer le seul élément présent dans le HTML, à savoir le body.
 
 let body = document.querySelector("body");
 
-// Création du header et de ses composants
+// ----------------------------------------------------Création du header et de ses composants
 
 let header = document.createElement("header");
 body.appendChild(header);
@@ -21,7 +21,7 @@ let headerRow = document.createElement("div");
 headerContainer.appendChild(headerRow);
 headerRow.setAttribute("class", "row");
 
-// Création du menu de navigation
+// -------------------------------------------------------------------Création du menu de navigation
 
 let nav = document.createElement("nav");
 headerRow.appendChild(nav);
@@ -39,7 +39,7 @@ logo.style.width = "100px";
 logo.style.height = "50px";
 logo.alt = "Logo Orinoco";
 
-// Création du bouton déroulant dont l'execution se fait grace aux liens dans le HTML
+//------------------------------------------------ Création du bouton déroulant dont l'execution se fait grace aux liens dans le HTML
 
 let navBouton = document.createElement("button");
 nav.appendChild(navBouton);
@@ -95,7 +95,7 @@ otherItemAnchor2.href = "basket.html";
 otherItemAnchor2.setAttribute("class", "nav-link");
 otherItemAnchor2.href = "basket.html";
 
-// Logo du panier
+//------------------------------------------------------------ Logo du panier
 
 let logoPanier = document.createElement("i");
 logoPanier.setAttribute("class", "fas fa-shopping-cart ");
@@ -110,7 +110,7 @@ articleDansPanier.style.marginLeft = "4px";
 
 
 
-// Création du main dans lequel apparaitront les produits
+// ----------------------------------------------------------------Création du main dans lequel apparaitront les produits
 
 let main = document.createElement("main");
 body.appendChild(main);
@@ -119,20 +119,24 @@ main.setAttribute("class", "container");
 
 let conteneurProduit = document.createElement("div");
 conteneurProduit.setAttribute("class", "row");
+conteneurProduit.style.marginTop = "7%"
 conteneurProduit.style.display = "flex";
 conteneurProduit.style.flexWrap = "wrap";
 // conteneurProduit.style.justifyContent = "space-around"
 main.appendChild(conteneurProduit);
 
-// Création du footer
+// ------------------------------------------------------------------------Création du footer
 
 let footer = document.createElement("footer");
 body.appendChild(footer);
-footer.setAttribute("class", "py-5 bg-dark");
+footer.setAttribute("class", " col py-5 bg-dark");
+main.style.minHeight = "700px"
 
 let containerFooter = document.createElement("div");
 containerFooter.setAttribute("class", "container");
 footer.appendChild(containerFooter);
+
+
 
 let pFooter = document.createElement("p");
 containerFooter.appendChild(pFooter);
@@ -143,25 +147,40 @@ pFooter.textContent = "Copyright By Chikibraaaaaah 2021";
 
 // ------------------------------------------------------ Contenu de la page
 
+//-------------------------- Message de remerciements avec numéro commande
 
 const divRemerciement = document.createElement('div');
 divRemerciement.setAttribute('class','row')
 main.appendChild(divRemerciement)
+main.style.width = "90%"
+
+// ------------------------------------------------------------------ On récupère le nom du formualaire pour les remerciements
+
 let contact = sessionStorage.getItem(('Contact'));
 // console.log(contact)
 let nomAcheteur = JSON.parse(contact);
 console.log(nomAcheteur[0].lastName);
+
+
+// ----------------------------------------------------- Texte remerciements
+
 const paragrapheRemerciements = document.createElement('p');
-paragrapheRemerciements.setAttribute('class','col text-center')
+paragrapheRemerciements.setAttribute('class','col col-md-12 col-xl-8 text-center')
 divRemerciement.appendChild(paragrapheRemerciements);
-paragrapheRemerciements.textContent = "Nous vous remercions M/Mme " + nomAcheteur[0].lastName +" pour votre commande référence: " + Math.random()
+paragrapheRemerciements.textContent = "Nous vous remercions M/Mme " + nomAcheteur[0].lastName +" pour votre commande référence: " + "CMD#" + (Math.random() * 10000000000000000)
+
+
+// ----------------------------------------------------- Image libre de droits utilisée
 
 const illustrationMerci = document.createElement('img');
-main.appendChild(illustrationMerci);
+divRemerciement.appendChild(illustrationMerci);
 illustrationMerci.src = "img/cimer.jpg"
-illustrationMerci.style.maxHeight = "400px"
-illustrationMerci.setAttribute('class','row ')
-illustrationMerci.style.margin = "auto"
+divRemerciement.style.width = "100%"
+illustrationMerci.setAttribute('class','col col-xl-8  ')
+illustrationMerci.style.width = "60%";
+divRemerciement.style.justifyContent = "center"
+
+// ------------------------------------------------------ On supprime le storage pour pouvoir reprendre depuis le début
 
 sessionStorage.removeItem("Mon Panier");
 sessionStorage.removeItem('Total Article');
