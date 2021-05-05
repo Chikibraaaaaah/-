@@ -106,25 +106,29 @@ function creerProduit(teddy, newUrl) {
 
     // Création de l'url unique pointée par le bouton
 
-    let adresseActuelle = window.location.pathname;
-    // console.log(adresseActuelle);
+    // let adresseActuelle = window.location.pathname;
+    // // console.log(adresseActuelle);
 
-    let spliteAdresse = adresseActuelle.split("/");
-    // console.log(spliteAdresse);
+    // let spliteAdresse = adresseActuelle.split("/");
+    // // console.log(spliteAdresse);
 
-    let indexSansLocal = spliteAdresse.pop();
-    // console.log(indexSansLocal);
+    // let indexSansLocal = spliteAdresse.pop();
+    // // console.log(indexSansLocal);
 
-    let productHtml =
-      window.location.origin +
-      window.location.pathname.replace("index", "product");
-    // console.log(productHtml);
+    // let productHtml = window.location.origin + indexSansLocal.replace(indexSansLocal, "/product.html");
+    // // console.log(productHtml);
 
-    newUrl = new URL(productHtml);
-    // console.log(newUrl);
+    // newUrl = new URL(productHtml);
+    // // console.log(newUrl);
 
-    newUrl.searchParams.append("id", teddy._id);
-    lienVersPageProduit.href = newUrl;
+    // newUrl.searchParams.append("id", teddy._id);
+    // lienVersPageProduit.href = newUrl;
+
+    let pageProd = window.location.origin + "/product.html";
+    // console.log(pageProd)
+    let urlUnique = new URL(pageProd);
+    urlUnique.searchParams.append("id", teddy._id);
+    lienVersPageProduit.href = urlUnique;
 
 }
 

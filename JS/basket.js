@@ -669,6 +669,7 @@ function send(data) {
   })
     .then(function (res) {
       if (res.ok) {
+        console.log('sisi')
         return res.json();
       }else{
         console.log('erreur transmission')
