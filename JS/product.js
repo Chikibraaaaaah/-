@@ -1,8 +1,8 @@
 //------------------------------------------------------- AUTOMATISATION DE LA RECUPERATION DES INFOS LIEES AU TEDDY
 
 
-// On veut que le produit cliqué charge automatiquement ses informations nécessaires. (name, prix, photo...)
-// Appel du produit
+// ----------------------------On veut que le produit cliqué charge automatiquement ses informations nécessaires. (name, prix, photo...)
+// --------------Appel du produit
 
 async function appelDesProduits (){
   let response = await fetch("http://localhost:3000/api/teddies");
@@ -23,7 +23,7 @@ async function appelDesProduits (){
       // sessionStorage.setItem(teddyName, JSON.stringify(teddy));
       // sessionStorage.getItem(teddyName);
 
-      // Maintenant que les infos sont dans le storage, on va décomposer l'URL pour récupérer l'Id du produit, et faire appraitre le produit ayant la même
+      // ----------------- Maintenant que les infos sont dans le storage, on va décomposer l'URL pour récupérer l'Id du produit, et faire appraitre le produit ayant la même
 
       const adresseActuelle = window.location.href.split("=");
       // console.log(adresseActuelle);
@@ -31,10 +31,10 @@ async function appelDesProduits (){
       const idDansUrl = adresseActuelle[1];
       //  console.log(idDansUrl)
 
-      // si l'id de l'url == id product dans session storage alors charger les infos correspondantes
+      // --------------------------------  si l'id de l'url == id product dans session storage alors charger les infos correspondantes
 
       if (idDansUrl == teddyId) {
-        // Construction de la structure HTML de la page
+        // ---------------------------------------------- Construction de la structure HTML de la page
 
         const conteneurProduit = document.createElement("div");
         main.appendChild(conteneurProduit);
@@ -44,14 +44,14 @@ async function appelDesProduits (){
         conteneurProduit.appendChild(article);
         article.setAttribute("class", "row");
 
-        // Chargement de la photo correspondate au produit appelé
+        // -----------------------------------------------   Chargement de la photo correspondate au produit appelé
 
         const apercuArticle = document.createElement("img");
         article.appendChild(apercuArticle);
         apercuArticle.src = teddy.imageUrl;
         apercuArticle.setAttribute("class", "col col-xl-6 card-image-top");
 
-        // Chargement des infos relatives au produit. Si la description est la même pour tous, le prix et le nom varient
+        // ------------------------------------  Chargement des infos relatives au produit. Si la description est la même pour tous, le prix et le nom varient
 
         const infosArticle = document.createElement("figcaption");
         article.appendChild(infosArticle);
@@ -72,7 +72,7 @@ async function appelDesProduits (){
         descriptionArticle.textContent = teddy.description;
         descriptionArticle.setAttribute("class", "card-body ");
 
-        // Gestion des quantités
+        // ----------------------------------------------------- Gestion des quantités
 
         let quantite = document.createElement("p");
         infosArticle.appendChild(quantite);
@@ -87,8 +87,8 @@ async function appelDesProduits (){
         inputQuantite.min = 0;
         inputQuantite.max = 15;
 
-        // Ici nous avons un nombre de couleurs qui varie selon le produit.
-        // Création donc d'une fonction qui prendra en paramètre la couleur choisie
+        // ---------------------------------------- Ici nous avons un nombre de couleurs qui varie selon le produit.
+        // ------------------------------------- Création donc d'une fonction qui prendra en paramètre la couleur choisie
 
         const couleur = document.createElement("p");
         infosArticle.appendChild(couleur);
@@ -110,7 +110,7 @@ async function appelDesProduits (){
 
         choixCouleur();
 
-        // Création d'un sous-total permettant de récapituler la commande en cours avant validation
+        // -------------------------------------- Création d'un sous-total permettant de récapituler la commande en cours avant validation
 
         let sousTotal = document.createElement("p");
         infosArticle.appendChild(sousTotal);
@@ -124,23 +124,13 @@ async function appelDesProduits (){
         montantSousTotal.value = teddyPrice ;
         montantSousTotal.style.backgroundColor = "white";
 
-        // Marrant car ne fonctionne pas....
-
-        // inputQuantite.onchange = function(){
-        //   montantSousTotal.value = (teddyPrice.split(' ')[0]) * inputQuantite.value + " €";
-        // }
-
-        // .textContent = "Sous total :" + (inputQuantite.value *teddyPrice.split(' ')[0])
-
-        //  sousTotal.textContent = "Sous total : " + (teddyPrice.split(' ')[0]*qtyFinale(index))
-
-        // Alternative trouvée
+        // ----------------------------------------------------- Fonction qui va mettre à jour le sous total par rapport à quantité
 
         inputQuantite.onchange = function () {
           montantSousTotal.value =  parseInt(prixArticle.textContent) * inputQuantite.value ;
         };
 
-        // Ne manque plus que les boutons d'ajout au panier et pour consulter le panier
+        // -------------------------------------- Ne manque plus que les boutons d'ajout au panier et pour consulter le panier
 
         let conteneurBoutons = document.createElement("div");
       
@@ -148,7 +138,7 @@ async function appelDesProduits (){
         conteneurBoutons.style.display = "flex";
         conteneurBoutons.style.justifyContent = "space-around";
 
-        // Bouton d'ajout au panier
+        // --------------------------------------------------- Bouton d'ajout au panier
 
         let boutonAjouterAuPanier = document.createElement("button");
         conteneurBoutons.appendChild(boutonAjouterAuPanier);
@@ -156,7 +146,7 @@ async function appelDesProduits (){
         boutonAjouterAuPanier.setAttribute("class", "btn btn-primary");
         boutonAjouterAuPanier.setAttribute("type", "submit");
 
-        // Création du lien vers la page panier
+        // -------------------------------------------------Création du lien vers la page panier
 
         let anchorPanier = document.createElement("a");
         conteneurBoutons.appendChild(anchorPanier);
@@ -184,8 +174,9 @@ async function appelDesProduits (){
 
         
 
-        // Ne reste plus qu'à pouvoir ajouter le produit au panier.
-        // Il faut donc créer la classe Teddy avec infos id, couleur, quantité et sous-total que nous stockerons dans le storage pour les afficher dans le panier"
+        // ------------------------------------ Ne reste plus qu'à pouvoir ajouter le produit au panier.
+        // ------------------------- Il faut donc créer la classe Teddy avec infos id, couleur, quantité et sous-total que nous stockerons dans 
+        //-------------------------------------------le storage pour les afficher dans le panier"
 
         class Teddy {
           constructor(teddyId, couleur, quantite, sousTotal, name, img ) {
@@ -198,14 +189,9 @@ async function appelDesProduits (){
           }
         }
 
-        // Création de la fonction pour mettre dans le panier storage
+        // ----------------------------------------- Création de la fonction pour mettre dans le panier storage
 
-     
-
-           
-          
-
-        // Au click, on va creer et envoyer en session storage les données reçues.
+        // ------------------------------------ Au click, on va creer et envoyer en session storage les données reçues.
 
         boutonAjouterAuPanier.onclick = function (teddyId, couleur, quantite, sousTotal, name, img) {
           
@@ -231,18 +217,18 @@ async function appelDesProduits (){
 
              validerArticle();
 
-          // On définit le nombre d'article dans le panier pour itérer le logo de notre panier
+          // --------------------------------------- On définit le nombre d'article dans le panier pour itérer le logo de notre panier
           let totalArticle = parseInt(sessionStorage.getItem('Total Article'));
 
-          // On définit le montant total pour pouvoir l'utiliser dans la page panier
+          // -------------------------------------------On définit le montant total pour pouvoir l'utiliser dans la page panier
           let montantTotal = parseInt(sessionStorage.getItem("Montant Total"));
 
-          // Message de validation 
+          // -------------------------------------------Message de validation 
           spanBtn.innerHTML = '<i class="fas fa-paw" id="papate"></i> L\'article a été mis dans le panier !'
           let papate = document.getElementById('papate');
           papate.style.color = "green"
       
-          // Premier cas de figure, le panier est vide
+          //---------------------------------------------------- Premier cas de figure, le panier est vide
 
           if (contenuPanier == null || contenuPanier.length == 0) {
             contenuPanier = [];
@@ -252,16 +238,16 @@ async function appelDesProduits (){
             
           }
 
-          // Deuxième cas, le panier n'est pas vide.
+          //--------------------------------------------- Deuxième cas, le panier n'est pas vide.
           else {
-            // le panier contient t-il le produit en question ?
+            // ---------------------------------------le panier contient t-il le produit en question ?
 
             for (var i in contenuPanier) {
               var teddyDansPanier = contenuPanier[i];
             }
 
-            // Pour le savoir il faut comparer d'abord l'id. S'il n'est pas présent on ajoute le produit.
-            // Si l'id est présent, la couleur est-elle la même ? Si non, alors on ajoute le produit
+            // -------------------------Pour le savoir il faut comparer d'abord l'id. S'il n'est pas présent on ajoute le produit.
+            //---------------------------- Si l'id est présent, la couleur est-elle la même ? Si non, alors on ajoute le produit
 
             if (
               teddyAchete.teddyId !== teddyDansPanier.teddyId ||
@@ -273,7 +259,7 @@ async function appelDesProduits (){
               teddyAchete.teddyId == teddyDansPanier.teddyId &&
               teddyAchete.couleur == teddyDansPanier.couleur
             ) {
-              // Le produit est déjà présent dans le panier. Dans ce cas, on incrémente simplement le sous-total et la quantité du produit concerné
+              // -------------Le produit est déjà présent dans le panier. Dans ce cas, on incrémente simplement le sous-total et la quantité du produit concerné
 
               function mettreAJourLePanier(quantite, sousTotal) {
                 teddyDansPanier.quantite = parseInt(teddyDansPanier.quantite) + parseInt(teddyAchete.quantite);
@@ -294,7 +280,7 @@ async function appelDesProduits (){
           panierHeader.textContent = totalArticle;
         };
 
-        // Une fois les articles dans le panier, on veut incrémenter le panier du header.
+        // ------------------------------- Une fois les articles dans le panier, on veut incrémenter le panier du header.
       }
     }
   } catch (e) {
@@ -326,11 +312,11 @@ appelDesProduits()
 
 // ---------------------------------------------------------  AJOUT DES STYLES CSS
 
-// Pour pouvoir créer les élements tel que le Header, il faut d'abord récupérer le seul élément présent dans le HTML, à savoir le body.
+// ---------------------------- Pour pouvoir créer les élements tel que le Header, il faut d'abord récupérer le seul élément présent dans le HTML, à savoir le body.
 
 let body = document.querySelector("body");
 
-// HEADER
+// ------------------------------------------------------------ HEADER
 
 let header = document.createElement("header");
 body.appendChild(header);
@@ -347,7 +333,7 @@ let headerRow = document.createElement("div");
 headerContainer.appendChild(headerRow);
 headerRow.setAttribute("class", "row");
 
-// HEADER NAV
+//-------------------------------------------------------------- HEADER NAV
 
 let nav = document.createElement("nav");
 headerRow.appendChild(nav);
@@ -365,7 +351,7 @@ logo.style.width = "100px";
 logo.style.height = "50px";
 logo.alt = "Logo Orinoco";
 
-// BOUTON MENU DEROULANT POUR RESPONSIVE
+//---------------------------------------------------------- BOUTON MENU DEROULANT POUR RESPONSIVE
 
 let navBouton = document.createElement("button");
 nav.appendChild(navBouton);
@@ -421,7 +407,7 @@ otherItemAnchor2.href = "basket.html";
 otherItemAnchor2.setAttribute("class", "nav-link");
 otherItemAnchor2.href = "basket.html";
 
-// LOGO PANIER HEADER
+// ------------------------------------------------------ LOGO PANIER HEADER
 
 let logoPanier = document.createElement("i");
 logoPanier.setAttribute("class", "fas fa-shopping-cart ");
@@ -435,7 +421,7 @@ articleDansPanier.setAttribute("id", "cardcount");
 articleDansPanier.style.marginLeft = "4px";
 
 
-// Si un produit a été mis dans le panier, il faut récupérer la valeur nb article pour l'actualiser
+// ------------------------------------- Si un produit a été mis dans le panier, il faut récupérer la valeur nb article pour l'actualiser
 
 let totalArticle = sessionStorage.getItem('Total Article');
 
@@ -446,7 +432,7 @@ if (totalArticle == null){
 }
 
 
-// CREATION DU MAIN
+// --------------------------------------------------------------------- CREATION DU MAIN
 
 let main = document.createElement("main");
 body.appendChild(main);
@@ -461,7 +447,7 @@ conteneurProduit.style.flexWrap = "wrap";
 main.appendChild(conteneurProduit);
 main.style.minHeight = "620px"
 
-// FOOTER
+// -------------------------------------------------------------- FOOTER
 
 let footer = document.createElement("footer");
 body.appendChild(footer);

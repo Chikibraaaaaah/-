@@ -1,16 +1,16 @@
 // ---------------------------------------------------------- CONTENU DE LA PAGE. 
 
-// 1) Pour cela il faut lancer l'appel à l'API
+// 1) ------------------------ Pour cela il faut lancer l'appel à l'API
 
-// Création de la fonction d'appel avec la methode fetch
+// --------------------Création de la fonction d'appel avec la methode fetch
 
 async function appelDesProduits() {
   try {
     let response = await fetch("http://localhost:3000/api/teddies");
     let responseJson = await response.json();
 
-    // Maintenant nous stockons les données dans une variable.
-    // Pour chaque élément de réponse, on créera une card qui redirigera vers la page du produit en question
+    // ---------------------Maintenant nous stockons les données dans une variable.
+    // ---------------------Pour chaque élément de réponse, on créera une card qui redirigera vers la page du produit en question
 
     for (var i = 0; i < responseJson.length; i++) {
       let teddy = responseJson[i];
@@ -19,7 +19,7 @@ async function appelDesProduits() {
       // console.log(teddy);
     }
 
-    // Au cas où l'appel à l'API ne fonctionne pas, il faut le signaler
+    // ----------------------------Au cas où l'appel à l'API ne fonctionne pas, il faut le signaler
 
   } catch (e) {
 
@@ -53,11 +53,11 @@ async function appelDesProduits() {
 }
 appelDesProduits();
 
-// Création de la fonction qui va créer une card pour chaque produit présent sur l'API.
+// ----------------------------------------Création de la fonction qui va créer une card pour chaque produit présent sur l'API.
 
 function creerProduit(teddy, newUrl) {
 
-  // Création de l'encadré correspondant à un produit
+  // ----------------------------------------------------Création de l'encadré correspondant à un produit
 
     let divArticle = document.createElement('div');
     conteneurProduit.appendChild(divArticle)
@@ -65,19 +65,19 @@ function creerProduit(teddy, newUrl) {
     divArticle.style.marginBottom = "3%"
     divArticle.style.marginTop = "3%" 
     
-    // Création de la figure
+    // --------------------------------------------------------- Création de la figure
 
     let article = document.createElement("figure");
     divArticle.appendChild(article);
     article.style.margin = "auto";
 
-    // L'API renvoie l'image correspondante au Teddy en question
+    //-----------------------------------------------  L'API renvoie l'image correspondante au Teddy en question
     
     let apercuArticle = document.createElement("img");
     apercuArticle.src = teddy.imageUrl;
     apercuArticle.setAttribute('class','card-img-top ')
 
-    // Idem pour les infos comme Nom et Prix
+    // ------------------------------------------------ Idem pour les infos comme Nom et Prix
 
     let infosArticle = document.createElement("figcaption");
     infosArticle.setAttribute('class','card-body')
@@ -93,7 +93,7 @@ function creerProduit(teddy, newUrl) {
     prixArticle.textContent = teddy.price / 100 + " €";
     prixArticle.setAttribute('class',"card-text")
 
-    // Création du bouton. Au clic redirigera vers la page produit en question
+    // --------------------------------------------------- Création du bouton. Au clic redirigera vers la page produit en question
 
     let lienVersPageProduit = document.createElement("a");
     let boutonVersPageProduit = document.createElement("button");
@@ -104,46 +104,27 @@ function creerProduit(teddy, newUrl) {
     infosArticle.appendChild(lienVersPageProduit);
     lienVersPageProduit.appendChild(boutonVersPageProduit);
 
-    // Création de l'url unique pointée par le bouton
-
-    // let adresseActuelle = window.location.pathname;
-    // // console.log(adresseActuelle);
-
-    // let spliteAdresse = adresseActuelle.split("/");
-    // // console.log(spliteAdresse);
-
-    // let indexSansLocal = spliteAdresse.pop();
-    // // console.log(indexSansLocal);
-
-    // let productHtml = window.location.origin + indexSansLocal.replace(indexSansLocal, "/product.html");
-    // // console.log(productHtml);
-
-    // newUrl = new URL(productHtml);
-    // // console.log(newUrl);
-
-    // newUrl.searchParams.append("id", teddy._id);
-    // lienVersPageProduit.href = newUrl;
+    // --------------------------------------------------------------Création de l'url unique pointée par le bouton
 
     let pageProd = window.location.origin + "/Orinoco/product.html";
     // console.log(pageProd)
     let urlUnique = new URL(pageProd);
     urlUnique.searchParams.append("id", teddy._id);
     lienVersPageProduit.href = urlUnique;
-
 }
 
 
+// -------------------- Au cas où une commande a été passé, le contact est toujours dans le storage. Donc on le supprime. Le contact nous intéresse avec la commande. 
+
+sessionStorage.removeItem('Contact')
 
 // ---------------------------------------------------------------- AJOUT DU STYLE DE LA PAGE
-sessionStorage.removeItem('Contact')
 
 //-----------------------------------------------  CREATION DU HEADER
 
-// Pour pouvoir créer les élements tel que le Header, il faut d'abord récupérer le seul élément présent dans le HTML, à savoir le body. 
-
 let body = document.querySelector('body');
 
-// Création du header et de ses composants
+// --------------------------------------Création du header et de ses composants
 
 let header = document.createElement('header');
 body.appendChild(header);
@@ -160,7 +141,7 @@ let headerRow = document.createElement('div');
 headerContainer.appendChild(headerRow);
 headerRow.setAttribute('class','row');
 
-// Création du menu de navigation contenant redirection vers index, et basket
+// ----------------------------------------------------Création du menu de navigation contenant redirection vers index, et basket
 
 let nav = document.createElement('nav');
 headerRow.appendChild(nav);
@@ -178,7 +159,7 @@ logo.style.width = "100px";
 logo.style.height = "50px";
 logo.alt ="Logo Orinoco";
 
-// Création du bouton déroulant dont l'execution se fait grace aux liens dans le HTML
+// ------------------------------------------Création du bouton déroulant dont l'execution se fait grace aux liens dans le HTML
 
 let navBouton = document.createElement('button');
 nav.appendChild(navBouton);
@@ -194,7 +175,7 @@ let spanButon = document.createElement('span');
 navBouton.appendChild(spanButon);
 spanButon.setAttribute('class','navbar-toggler-icon');
 
-// Contenu qui apparait sous forme de menu déroulant au click 
+// -------------------------------------------- Contenu qui apparait sous forme de menu déroulant au click 
 
 let navBarContent = document.createElement('div');
 nav.appendChild(navBarContent);
@@ -235,7 +216,7 @@ otherItemAnchor2.textContent = "Mon panier" ;
 otherItemAnchor2.setAttribute("class", "nav-link");
 otherItemAnchor2.href = "basket.html";
 
-// Logo du panier
+// -------------------------------------------------------- Logo du panier
 
 let logoPanier = document.createElement('i');
 logoPanier.setAttribute('class','fas fa-shopping-cart ')
@@ -243,14 +224,14 @@ logoPanier.style.color = "white";
 logoPanier.style.marginLeft = "4px"
 otherItemAnchor2.appendChild(logoPanier)
 
-// Rajout du nombre d'article dans le panier. Par défaut 0
+// -------------------------------------  Rajout du nombre d'article dans le panier. Par défaut 0
 
 let articleDansPanier = document.createElement('span');
 logoPanier.appendChild(articleDansPanier);
 articleDansPanier.setAttribute("id", "cardcount");
 articleDansPanier.style.marginLeft = "4px";
 
-// Si un produit a été mis dans le panier, il faut récupérer la valeur nb article pour l'actualiser
+// ------------------------------- Si un produit a été mis dans le panier, il faut récupérer la valeur nb article pour l'actualiser
 
 let totalArticle = sessionStorage.getItem('Total Article');
 
@@ -261,7 +242,7 @@ if (totalArticle == null){
 }
 
 
-// Création du main dans lequel apparaitront les produits
+// --------------------------------------------------      Création du main dans lequel apparaitront les produits
 
 let main = document.createElement("main");
 body.appendChild(main);
@@ -280,7 +261,7 @@ conteneurProduit.style.flexWrap = "wrap";
 // conteneurProduit.style.justifyContent = "space-around"
 main.appendChild(conteneurProduit);
 
-// Création du footer
+// ------------------------------------------------------      Création du footer
 
 let footer = document.createElement("footer");
 body.appendChild(footer);

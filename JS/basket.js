@@ -1,10 +1,10 @@
 //------------------------------------------------------ CREATION HEADER - FOOTER
 
-// Récupération du body.
+// ------------------------------------------------ Récupération du body.
 
 let body = document.querySelector("body");
 
-// Création du header et de ses composants
+// ------------------------------------------------Création du header et de ses composants
 
 let header = document.createElement("header");
 body.appendChild(header);
@@ -21,7 +21,7 @@ let headerRow = document.createElement("div");
 headerContainer.appendChild(headerRow);
 headerRow.setAttribute("class", "row");
 
-// HEADER ------------ menu de navigation
+// ------------------------------------------------- HEADER ------------ menu de navigation
 
 let nav = document.createElement("nav");
 headerRow.appendChild(nav);
@@ -39,7 +39,7 @@ logo.style.width = "100px";
 logo.style.height = "50px";
 logo.alt = "Logo Orinoco";
 
-//  HEADER -- Création du bouton déroulant dont l'execution se fait grace aux liens dans le HTML
+//  ------------------------------HEADER -- Création du bouton déroulant dont l'execution se fait grace aux liens dans le HTML
 
 let navBouton = document.createElement("button");
 nav.appendChild(navBouton);
@@ -137,12 +137,12 @@ containerFooter.appendChild(pFooter);
 pFooter.setAttribute("class", "m-0 text-center text-white");
 pFooter.textContent = "Copyright By Chikibraaaaaah 2021";
 
-// Il faut maintenant créer un tableau récapitulatif reprenant les éléments stockés dans le storage.
-// Si le panier est vide, mettre un avertissement, si le panier contient au moins un article, créer un ligne récapitulatif
+//------------------------------------------- Il faut maintenant créer un tableau récapitulatif reprenant les éléments stockés dans le storage.
+//------------------------------------ Si le panier est vide, mettre un avertissement, si le panier contient au moins un article, créer un ligne récapitulatif
 
 //------------------------------------------------------------             Contenu de la page
 
-// On récupèr les infos stockées dans le storage
+// -------------------------------------------------------- On récupèr les infos stockées dans le storage
 
 let contenuPanier = sessionStorage.getItem("Mon Panier");
 let panierParse = JSON.parse(contenuPanier);
@@ -185,7 +185,7 @@ if (panierParse == null || totalArticle == 0) {
   
   title.setAttribute("class", "text-center mt-4 mb-5");
 
-  // Création de la première ligne
+  //------------------------------------------------------------------- Création de la première ligne
 
   let recap = document.createElement("div");
   main.appendChild(recap);
@@ -202,34 +202,34 @@ if (panierParse == null || totalArticle == 0) {
   // -----------------------------------------      FONCTION POUR CREER REPRESENTATION DU PANIER SELON SESSIONSTORAGE
 
   function creationLigne(articleUnitaire) {
-    // Création de la div contenante toute les informations d'un produit
+    //-------------------------------------------------- Création de la div contenante toute les informations d'un produit
     let ligne = document.createElement("div");
     ligne.setAttribute("id", "ligneProd");
     recap.appendChild(ligne);
     ligne.setAttribute("class", "row border ligne");
 
-    // Apercu de l'achat
+    //-------------------------------------------------------------------- Apercu de l'achat
     let apercuAchat = document.createElement("img");
     ligne.appendChild(apercuAchat);
     apercuAchat.setAttribute("class", "col-xl-3 text-center ");
     apercuAchat.src = articleUnitaire.img;
     apercuAchat.style.margin = "auto auto";
 
-    // Nom de l'achat
+    //---------------------------------------------------------------------- Nom de l'achat
     let designationAchat = document.createElement("p");
     ligne.appendChild(designationAchat);
     designationAchat.setAttribute("class", "col-xl-2 text-center");
     designationAchat.innerHTML = "<em>Article</em> : </br> " + articleUnitaire.name;
     designationAchat.style.margin = "auto auto";
 
-    // Couleur de l'achat
+    // -----------------------------------------------Couleur de l'achat
     let couleurChoisie = document.createElement("p");
     ligne.appendChild(couleurChoisie);
     couleurChoisie.setAttribute("class", "col-xl-2 text-center");
     couleurChoisie.innerHTML = "<em>Couleur</em> : </br>" + articleUnitaire.couleur;
     couleurChoisie.style.margin = "auto auto";
 
-    // Quantité commandée
+    //-------------------------------------------- Quantité commandée
     let qtyCommande = document.createElement("p");
     ligne.appendChild(qtyCommande);
     qtyCommande.setAttribute("type", "number");
@@ -237,7 +237,7 @@ if (panierParse == null || totalArticle == 0) {
     qtyCommande.innerHTML = "<em>Quantité</em> :</br>" + articleUnitaire.quantite;
     qtyCommande.style.margin = "auto auto";
 
-    // Sous-total de l'article choisi
+    // ---------------------------------------------Sous-total de l'article choisi
     let sousTotalAchat = document.createElement("p");
     ligne.appendChild(sousTotalAchat);
     sousTotalAchat.setAttribute("class", "col-xl-2  text-center");
@@ -245,16 +245,16 @@ if (panierParse == null || totalArticle == 0) {
       "<em>Sous-total</em> :</br>" + articleUnitaire.sousTotal + " €";
     sousTotalAchat.style.margin = "auto auto";
 
-    // Création d'un bouton pour supprimer la ligne
+    // -------------------------------------------- Création d'un bouton pour supprimer la ligne
 
-    // Le contenant du bouton
+    // -------------------------------------------------Le contenant du bouton
     let conteneurBoutonSupp = document.createElement("div");
     ligne.appendChild(conteneurBoutonSupp);
     conteneurBoutonSupp.style.margin = "auto auto";
     conteneurBoutonSupp.setAttribute("class", "col-xl-1 ");
 
 
-    // Le bouton
+    // ----------------------------------------------------Le bouton
     let supprimerArticle = document.createElement("button");
     conteneurBoutonSupp.appendChild(supprimerArticle);
     supprimerArticle.setAttribute("class", " col  ");
@@ -268,7 +268,7 @@ if (panierParse == null || totalArticle == 0) {
      },false)
     
 
-    // Illustration poubelle utilisée
+    // --------------------------------------------Illustration poubelle utilisée
     let logoPoubelle = document.createElement("i");
     logoPoubelle.setAttribute("class", "far fa-trash-alt ");
   
@@ -278,18 +278,18 @@ if (panierParse == null || totalArticle == 0) {
     // ---------------------------                           FONCTION SUPPRIMER UN ARTICLE
 
     supprimerArticle.onclick = function () {
-      // On récupère le panier enregistré
+      // ------------------------------------------------ On récupère le panier enregistré
       sessionStorage.getItem("Mon Panier");
 
-      // Pour splice, on a besoin de l'index du produit à supprimer
+      // ------------------------------------- Pour splice, on a besoin de l'index du produit à supprimer
       let indexProduit = panierParse.indexOf(articleUnitaire);
       // console.log(indexProduit);
 
-      // On veut supprimer qu'1 seul article,  correspondant à l'index du produit concerné
+      // ---------------------------- On veut supprimer qu'1 seul article,  correspondant à l'index du produit concerné
       var articleSupprime = panierParse.splice(indexProduit, 1);
       // console.log(articleSupprime[0].quantite);
 
-      // On sauvegarde le panier actuel.
+      // ------------------------------------------------ On sauvegarde le panier actuel.
       sessionStorage.setItem("Mon Panier", JSON.stringify(panierParse));
 
       // On modifie les tableaux quantité et total€ dans storage
@@ -311,18 +311,18 @@ if (panierParse == null || totalArticle == 0) {
 
   // ------------------------------------------------------------------     RECAP DE LA COMMANDE
 
-  // Création d'une fonction pour automatiser l'affichage en fonction des quantités
-  // sera executée au chargement de la page panier, puis à chaque fois que l'on supprimera un article
+  // -------------------------------------  Création d'une fonction pour automatiser l'affichage en fonction des quantités
+  // --------------------------------sera executée au chargement de la page panier, puis à chaque fois que l'on supprimera un article
 
   function refresh(totalArticle, montantTotal) {
-    // Récupération des deux paramètres
+    // ----------------------------------------------------Récupération des deux paramètres
     totalArticle = sessionStorage.getItem("Total Article");
     montantTotal = sessionStorage.getItem("Montant Total");
     pRecapNbArticle.style.marginTop = "20px";
     pRecapNbArticle.textContent = "Nombre d'article(s): " + totalArticle;
     pRecapNbArticle.setAttribute('class','col-8')
 
-    // Paragraphe contenant le prix avant condition pour affichage message lié au port et au nombre d'article dans panier
+    // -------------------------------------- Paragraphe contenant le prix avant condition pour affichage message lié au port et au nombre d'article dans panier
     pSousTotal.textContent = "Sous-total:" + " " + montantTotal + " €";
     pSousTotal.setAttribute('class','col-8')
     if (montantTotal >= 150) {
@@ -332,14 +332,14 @@ if (panierParse == null || totalArticle == 0) {
       papate.style.color = "green";fraisDePort.setAttribute('class','col')
     }
 
-    // Si le panier retombe à ZERO, on cache les précdants éléments, on appelle la fonction qui affiche le panier vide
+    //-------------------------------------- Si le panier retombe à ZERO, on cache les précdants éléments, on appelle la fonction qui affiche le panier vide
     else if (totalArticle == 0) {
       recap.style.display = "none";
       formulaire.style.display = "none";
       validationButon.style.display = "none";
       avertirPanierVide();
     }
-    // Conditions et calcul des frais de port
+    // -------------------------------------------------------- Conditions et calcul des frais de port
     else {
       fraisDePort.innerHTML =
         '<i class="fas fa-heart-broken" id="coeur"></i> Plus que ' +
@@ -359,7 +359,7 @@ if (panierParse == null || totalArticle == 0) {
     }
   }
 
-  // Les éléments qui vont être impactés par cette fonction.
+  //------------------------------------------------- Les éléments qui vont être impactés par cette fonction.
 
   let divRecap = document.createElement("div");
   recap.appendChild(divRecap);
@@ -381,7 +381,7 @@ if (panierParse == null || totalArticle == 0) {
   divRecap.appendChild(recapTotal);
   recapTotal.setAttribute('class','col-3')
 
-  // Appelle de la fonction pour le premier passage de la page product, à panier
+  // -----------------------------------------Appelle de la fonction pour le premier passage de la page product, à panier
   refresh();
 }
 
@@ -397,7 +397,7 @@ formulaire.appendChild(formTitle);
 formTitle.textContent = "Vous y êtes presque !";
 formTitle.setAttribute('class','text-center mt-2')
 
-// Espace dédié au nom
+// ------------------------------------------------------------------- Espace dédié au nom
 
 const divNom = document.createElement("div");
 formulaire.appendChild(divNom);
@@ -409,7 +409,7 @@ labelPrenom.setAttribute("for", "identity-first");
 labelPrenom.setAttribute("class", "col");
 labelPrenom.textContent = "Prénom:";
 
-// Input Prénom
+// ------------------------------------------------------------------------Input Prénom
 
 const inputPrenom = document.createElement("input");
 divNom.appendChild(inputPrenom);
@@ -427,7 +427,7 @@ labelNom.setAttribute("class", "col");
 labelNom.style.marginLeft = "20%"
 labelNom.textContent = "Nom:";
 
-// Input Nom
+// ------------------------------------------------------------------------------Input Nom
 
 const inputNom = document.createElement("input");
 divNom.appendChild(inputNom);
@@ -438,7 +438,7 @@ inputNom.placeholder = "TSR";
 inputNom.required;
 inputPrenom.autofocus;
 
-// Partie adresse de livraison
+//----------------------------------------------------------------------- Partie adresse de livraison
 
 const divAdresse = document.createElement("div");
 formulaire.appendChild(divAdresse);
@@ -462,7 +462,7 @@ labelAdresse.appendChild(smallAdresse);
 smallAdresse.setAttribute("class", "form-text text-muted");
 smallAdresse.textContent = "Adresse de livraison";
 
-// Ville
+// --------------------------------------------------------------------- Ville
 
 const labelVille = document.createElement("label");
 divAdresse.appendChild(labelVille);
@@ -476,7 +476,7 @@ ville.setAttribute("class", "form-control");
 ville.setAttribute("id", "ville");
 ville.placeholder = "La Rochelle";
 
-// Au cas où l'adresse de livraison n'est pas la même que la livraison
+// ----------------------------------------------- Au cas où l'adresse de livraison n'est pas la même que la livraison
 
 const divFacturation = document.createElement("div");
 formulaire.appendChild(divFacturation);
@@ -501,7 +501,7 @@ labelFactu.appendChild(smallFactu);
 smallFactu.setAttribute("class", "form-text text-muted");
 smallFactu.textContent = "Si différente de l'adresse de livraison";
 
-// Ville  facturation
+//------------------------------------------------------------------ Ville  facturation
 
 const labelAdresseFactu = document.createElement("label");
 divFacturation.appendChild(labelAdresseFactu);
@@ -516,7 +516,7 @@ villeFactu.setAttribute("id", "adresseFactu");
 villeFactu.placeholder = "Sainte-Marie-de-Ré";
 villeFactu.style.backgroundColor = "#E8FDFE";
 
-// Partie adresse mail
+// --------------------------------------------------------------- Partie adresse mail
 
 const divMail = document.createElement("div");
 formulaire.appendChild(divMail);
@@ -534,7 +534,7 @@ inputMail.setAttribute("class", "form-control");
 inputMail.setAttribute("id", "mail");
 inputMail.placeholder = "iloveteddy@orinoco.fr";
 
-// Création du message texte
+// ----------------------------------------------------------- Création du message texte
 
 const divDemande = document.createElement("div");
 formulaire.appendChild(divDemande);
@@ -552,7 +552,7 @@ textDemande.setAttribute("id", "message");
 textDemande.placeholder = "Votre message";
 textDemande.minLength = 3;
 
-// Création de la checkbox CGV
+// ------------------------------------------------------------- Création de la checkbox CGV
 
 const checkCGV = document.createElement("div");
 formulaire.appendChild(checkCGV);
@@ -570,7 +570,7 @@ checkCGV.appendChild(labelCGV);
 labelCGV.setAttribute("for", "check");
 labelCGV.textContent = "J'ai pris connaissance des CGV";
 
-// Création de la checkbox newsLetter
+// ---------------------------------------------------------------- Création de la checkbox newsLetter
 
 const checkNews = document.createElement("div");
 formulaire.appendChild(checkNews);
@@ -587,7 +587,7 @@ checkNews.appendChild(labelNews);
 labelNews.setAttribute("for", "newsletter");
 labelNews.textContent = "Je souhaite m'abonner à la Newsletter";
 
-// Création du bouton
+// ---------------------------------------------------------------- Création du bouton
 
 const lienValidation = document.createElement("a");
 main.appendChild(lienValidation);
@@ -600,7 +600,7 @@ validationButon.setAttribute("class", "btn btn-primary mb-4");
 validationButon.textContent = "Valider et envoyer";
 
 // ----------------------------------------------------------------- Validation des champs du formulaire
-// Création d'un obljet contact que l'on pourra sauvegarder
+// -------------------------------------------------------  Création d'un obljet contact que l'on pourra sauvegarder
 
 class Contact {
   constructor(name, surname, adress, city, mail) {
@@ -612,16 +612,16 @@ class Contact {
   }
 }
 
-// Création de la fonction qui va permettre de sauvegarder la demande.
+// --------------------------------------------------------- Création de la fonction qui va permettre de sauvegarder la demande.
 
-// Mais avant cela, il faut s'assurer qu'il respecte nos REGEX.
+//------------------------------------------------------------------  Mais avant cela, il faut s'assurer qu'il respecte nos REGEX.
 
 let pasDroitChiffre = /^([a-zA-Z- áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]){2,20}$/;
 let droitAuxChiffres = /^([a-zA-Z-  0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]){3,40}$/;
 let regexmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
 
-// Au clic du bouton, la fonction de validation est appelée. Soit il y a une erreur dans quel cas une alerte est lancée, spécifiant sur quel champs le pb a été constaté
-// Soit les données sont au bon format, création de l'objet contact pour transmettre cette dernière au service web.
+//---------- Au clic du bouton, la fonction de validation est appelée. Soit il y a une erreur dans quel cas une alerte est lancée, spécifiant sur quel champs le pb a été constaté
+//----------------------------- Soit les données sont au bon format, création de l'objet contact pour transmettre cette dernière au service web.
 
 validationButon.onclick = function () {
   name = inputPrenom.value;
@@ -674,17 +674,12 @@ validationButon.onclick = function () {
       produits: commandeFinaleParse,
     };
     lienValidation.href = "confirmation.html";
-
     //  envoyerInfosCommande(data);
-  
     send(data);
 
-    
-    
   }
 };
-
-// ---------------- Envoie au serveur des infos récupérées Contact et commande
+// ---------------------------------------------------Envoie au serveur des infos récupérées Contact et commande
 
 function send(data) {
   e.preventDefault();
@@ -709,14 +704,3 @@ function send(data) {
 
 
 
-
-// function envoyerInfosCommande(data){
-//     fetch("http://localhost:3000/api/teddies/order", {
-//       method: "POST",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(data),
-//     });
-// }
