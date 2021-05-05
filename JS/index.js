@@ -124,7 +124,7 @@ function creerProduit(teddy, newUrl) {
     // newUrl.searchParams.append("id", teddy._id);
     // lienVersPageProduit.href = newUrl;
 
-    let pageProd = window.location.origin + "/product.html";
+    let pageProd = window.location.origin + "/Orinoco/product.html";
     // console.log(pageProd)
     let urlUnique = new URL(pageProd);
     urlUnique.searchParams.append("id", teddy._id);
