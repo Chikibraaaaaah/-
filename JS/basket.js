@@ -1,3 +1,7 @@
+
+
+
+
 //------------------------------------------------------ CREATION HEADER - FOOTER
 
 // ------------------------------------------------ Récupération du body.
@@ -20,6 +24,8 @@ let headerRow = document.createElement("div");
 
 headerContainer.appendChild(headerRow);
 headerRow.setAttribute("class", "row");
+
+
 
 // ------------------------------------------------- HEADER ------------ menu de navigation
 
@@ -137,6 +143,13 @@ containerFooter.appendChild(pFooter);
 pFooter.setAttribute("class", "m-0 text-center text-white");
 pFooter.textContent = "Copyright By Chikibraaaaaah 2021";
 
+
+
+
+
+
+
+
 //------------------------------------------- Il faut maintenant créer un tableau récapitulatif reprenant les éléments stockés dans le storage.
 //------------------------------------ Si le panier est vide, mettre un avertissement, si le panier contient au moins un article, créer un ligne récapitulatif
 
@@ -194,8 +207,11 @@ if (panierParse == null || totalArticle == 0) {
 
   // ----------------------------                             Pour chaque article se trouvant dans le panier
 
+  var commandeFinale = [];
+
   for (i in panierParse) {
     var articleUnitaire = panierParse[i];
+    commandeFinale.push(articleUnitaire.teddyId);
     creationLigne(articleUnitaire);
   }
 
@@ -662,27 +678,38 @@ validationButon.onclick = function () {
   ) {
     contact.push(demandeContact);
     sessionStorage.setItem("Contact", JSON.stringify(contact));
-    let commandeFinale = sessionStorage.getItem("Mon Panier");
-    // console.log(comm)
-    let commandeFinaleParse = JSON.parse(commandeFinale);
-    // console.log(comParse)
+    
+    // console.log(JSON.stringify(commandeFinale));
+    // console.log(commandeFinaleParse);
 
-    // console.log(contact);
+    // let commandeString = JSON.stringify(commandeFinale)
 
     let data = {
-      contact: contact,
-      produits: commandeFinaleParse,
+       contact: demandeContact,
+       products : commandeFinale,
     };
     lienValidation.href = "confirmation.html";
-    //  envoyerInfosCommande(data);
     send(data);
-
   }
 };
 // ---------------------------------------------------Envoie au serveur des infos récupérées Contact et commande
 
+/**
+ *
+ * Expects request to contain:
+ * contact: {
+ *   firstName: string,
+ *   lastName: string,
+ *   address: string,
+ *   city: string,
+ *   email: strings
+ * }
+ * products: [string] <-- array of product _id
+ *
+ */
+
 function send(data) {
-  e.preventDefault();
+
   fetch("http://localhost:3000/api/teddies/order", {
     method: "POST",
     headers: {
@@ -693,12 +720,14 @@ function send(data) {
   })
     .then(function (res) {
       if (res.ok) {
-        console.log('sisi')
+      
         return res.json();
       }else{
         console.log('erreur transmission')
       }
     })
+    .then( () => console.log(data))
+
 }
 
 
