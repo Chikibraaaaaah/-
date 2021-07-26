@@ -1,7 +1,4 @@
 
-
-
-
 //------------------------------------------------------ CREATION HEADER - FOOTER
 
 // ------------------------------------------------ Récupération du body.
@@ -150,6 +147,24 @@ pFooter.textContent = "Copyright By Chikibraaaaaah 2021";
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //------------------------------------------- Il faut maintenant créer un tableau récapitulatif reprenant les éléments stockés dans le storage.
 //------------------------------------ Si le panier est vide, mettre un avertissement, si le panier contient au moins un article, créer un ligne récapitulatif
 
@@ -270,12 +285,16 @@ if (panierParse == null || totalArticle == 0) {
     conteneurBoutonSupp.setAttribute("class", "col-xl-1 ");
 
 
-    // ----------------------------------------------------Le bouton
+    // ----------------------------------------------------Le bouton de suppression par ligne
+
     let supprimerArticle = document.createElement("button");
     conteneurBoutonSupp.appendChild(supprimerArticle);
     supprimerArticle.setAttribute("class", " col  ");
     supprimerArticle.style.backgroundColor = "white"
      supprimerArticle.style.border = "white";
+
+    // Ajout d'effet au survol du bouton de suppression
+
      supprimerArticle.addEventListener('mouseover',function (event){
        event.target.style.color = "red";
        setTimeout(function(){
@@ -400,6 +419,29 @@ if (panierParse == null || totalArticle == 0) {
   // -----------------------------------------Appelle de la fonction pour le premier passage de la page product, à panier
   refresh();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ----------------------------------------------------------------- Partie formulaire
 
@@ -683,15 +725,24 @@ validationButon.onclick = function () {
     // console.log(commandeFinaleParse);
 
     // let commandeString = JSON.stringify(commandeFinale)
+    console.log(demandeContact);
+    console.log(commandeFinale);
 
     let data = {
        contact: demandeContact,
        products : commandeFinale,
     };
-    lienValidation.href = "confirmation.html";
+
+    let aEnv = {demandeContact, commandeFinale}
+    // lienValidation.href = "confirmation.html";
     send(data);
+    console.log(data);
   }
 };
+
+
+
+
 // ---------------------------------------------------Envoie au serveur des infos récupérées Contact et commande
 
 /**
@@ -710,26 +761,26 @@ validationButon.onclick = function () {
 
 function send(data) {
 
-  fetch("http://localhost:3000/api/teddies/order", {
-    method: "POST",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then(function (res) {
-      if (res.ok) {
-      
-        return res.json();
-      }else{
-        console.log('erreur transmission')
-      }
+    fetch("http://localhost:3000/api/teddies/order", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
-    .then( () => console.log(data))
+      .then(function (res) {
+        if (res.ok) {
+          return res.json();
+        }else{
+          console.log('erreur transmission')
+        }
+      })
+    .then( (data) =>console.log(data))
+ 
 
-}
-
-
-
-
+   
+  
+  }
+  
+  

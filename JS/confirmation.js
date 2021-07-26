@@ -167,7 +167,8 @@ console.log(nomAcheteur[0].lastName);
 const paragrapheRemerciements = document.createElement('p');
 paragrapheRemerciements.setAttribute('class','col col-md-12 col-xl-8 text-center')
 divRemerciement.appendChild(paragrapheRemerciements);
-paragrapheRemerciements.textContent = "Nous vous remercions M/Mme " + nomAcheteur[0].lastName +" pour votre commande référence: " + "CMD#" + (Math.random() * 10000000000000000)
+const montantTotal = sessionStorage.getItem('Montant Total')
+paragrapheRemerciements.textContent = "Nous vous remercions M/Mme " + nomAcheteur[0].lastName +" pour votre commande référence: " + "CMD#" + (Math.random() * 10000000000000000) + " pour uun montant de " + montantTotal + " €."
 
 
 // ----------------------------------------------------- Image libre de droits utilisée

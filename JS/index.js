@@ -118,6 +118,16 @@ function creerProduit(teddy, newUrl) {
 
 sessionStorage.removeItem('Contact')
 
+
+
+
+
+
+
+
+
+
+
 // ---------------------------------------------------------------- AJOUT DU STYLE DE LA PAGE
 
 //-----------------------------------------------  CREATION DU HEADER
