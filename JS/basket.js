@@ -734,7 +734,7 @@ validationButon.onclick = function () {
     };
 
     let aEnv = {demandeContact, commandeFinale}
-    // lienValidation.href = "confirmation.html";
+    lienValidation.href = "confirmation.html";
     send(data);
     console.log(data);
   }
