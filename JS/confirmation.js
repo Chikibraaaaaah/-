@@ -156,7 +156,7 @@ main.style.width = "90%"
 
 // ------------------------------------------------------------------ On récupère le nom du formualaire pour les remerciements
 
-let contact = sessionStorage.getItem(('Contact'));
+let contact = localStorage.getItem(('Contact'));
 // console.log(contact)
 let nomAcheteur = JSON.parse(contact);
 console.log(nomAcheteur[0].lastName);
@@ -167,8 +167,11 @@ console.log(nomAcheteur[0].lastName);
 const paragrapheRemerciements = document.createElement('p');
 paragrapheRemerciements.setAttribute('class','col col-md-12 col-xl-8 text-center')
 divRemerciement.appendChild(paragrapheRemerciements);
-const montantTotal = sessionStorage.getItem('Montant Total')
-paragrapheRemerciements.textContent = "Nous vous remercions M/Mme " + nomAcheteur[0].lastName +" pour votre commande référence: " + "CMD#" + (Math.random() * 10000000000000000) + " pour uun montant de " + montantTotal + " €."
+const montantTotal = localStorage.getItem('Montant Total')
+const orderId = localStorage.getItem('OrderId');
+console.log(orderId)
+
+paragrapheRemerciements.textContent = "Nous vous remercions M/Mme " + nomAcheteur[0].lastName +" pour votre commande référence: " + "CMD#" + orderId + " pour un montant de " + montantTotal + " €."
 
 
 // ----------------------------------------------------- Image libre de droits utilisée
@@ -183,6 +186,7 @@ divRemerciement.style.justifyContent = "center"
 
 // ------------------------------------------------------ On supprime le storage pour pouvoir reprendre depuis le début
 
-sessionStorage.removeItem("Mon Panier");
-sessionStorage.removeItem('Total Article');
-sessionStorage.removeItem('Montant Total')
+localStorage.removeItem("Mon Panier");
+localStorage.removeItem('Total Article');
+localStorage.removeItem('Montant Total')
+localStorage.removeItem('OrderId');

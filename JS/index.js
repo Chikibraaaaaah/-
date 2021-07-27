@@ -116,7 +116,7 @@ function creerProduit(teddy, newUrl) {
 
 // -------------------- Au cas où une commande a été passé, le contact est toujours dans le storage. Donc on le supprime. Le contact nous intéresse avec la commande. 
 
-sessionStorage.removeItem('Contact')
+localStorage.removeItem('Contact')
 
 
 
@@ -243,7 +243,7 @@ articleDansPanier.style.marginLeft = "4px";
 
 // ------------------------------- Si un produit a été mis dans le panier, il faut récupérer la valeur nb article pour l'actualiser
 
-let totalArticle = sessionStorage.getItem('Total Article');
+let totalArticle = localStorage.getItem('Total Article');
 
 if (totalArticle == null){
   totalArticle == 0

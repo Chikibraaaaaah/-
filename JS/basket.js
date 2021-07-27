@@ -172,10 +172,10 @@ pFooter.textContent = "Copyright By Chikibraaaaaah 2021";
 
 // -------------------------------------------------------- On récupèr les infos stockées dans le storage
 
-let contenuPanier = sessionStorage.getItem("Mon Panier");
+let contenuPanier = localStorage.getItem("Mon Panier");
 let panierParse = JSON.parse(contenuPanier);
 // console.log(panierParse)
-totalArticle = sessionStorage.getItem("Total Article");
+totalArticle = localStorage.getItem("Total Article");
 
 // ----------------------------------------------------------      Si le panier ne contient aucun article
 
@@ -230,7 +230,7 @@ if (panierParse == null || totalArticle == 0) {
     creationLigne(articleUnitaire);
   }
 
-  // -----------------------------------------      FONCTION POUR CREER REPRESENTATION DU PANIER SELON SESSIONSTORAGE
+  // -----------------------------------------      FONCTION POUR CREER REPRESENTATION DU PANIER SELON localStorage
 
   function creationLigne(articleUnitaire) {
     //-------------------------------------------------- Création de la div contenante toute les informations d'un produit
@@ -314,7 +314,7 @@ if (panierParse == null || totalArticle == 0) {
 
     supprimerArticle.onclick = function () {
       // ------------------------------------------------ On récupère le panier enregistré
-      sessionStorage.getItem("Mon Panier");
+      localStorage.getItem("Mon Panier");
 
       // ------------------------------------- Pour splice, on a besoin de l'index du produit à supprimer
       let indexProduit = panierParse.indexOf(articleUnitaire);
@@ -325,18 +325,18 @@ if (panierParse == null || totalArticle == 0) {
       // console.log(articleSupprime[0].quantite);
 
       // ------------------------------------------------ On sauvegarde le panier actuel.
-      sessionStorage.setItem("Mon Panier", JSON.stringify(panierParse));
+      localStorage.setItem("Mon Panier", JSON.stringify(panierParse));
 
       // On modifie les tableaux quantité et total€ dans storage
-      let totalArticle = sessionStorage.getItem("Total Article");
+      let totalArticle = localStorage.getItem("Total Article");
       totalArticle = parseInt(totalArticle) - articleSupprime[0].quantite;
 
       // console.log(totalArticle);
-      sessionStorage.setItem("Total Article", JSON.stringify(totalArticle));
+      localStorage.setItem("Total Article", JSON.stringify(totalArticle));
 
-      let montantTotal = sessionStorage.getItem("Montant Total");
+      let montantTotal = localStorage.getItem("Montant Total");
       montantTotal = parseInt(montantTotal) - articleSupprime[0].sousTotal;
-      sessionStorage.setItem("Montant Total", JSON.stringify(montantTotal));
+      localStorage.setItem("Montant Total", JSON.stringify(montantTotal));
 
       recap.removeChild(ligne);
 
@@ -351,8 +351,8 @@ if (panierParse == null || totalArticle == 0) {
 
   function refresh(totalArticle, montantTotal) {
     // ----------------------------------------------------Récupération des deux paramètres
-    totalArticle = sessionStorage.getItem("Total Article");
-    montantTotal = sessionStorage.getItem("Montant Total");
+    totalArticle = localStorage.getItem("Total Article");
+    montantTotal = localStorage.getItem("Montant Total");
     pRecapNbArticle.style.marginTop = "20px";
     pRecapNbArticle.textContent = "Nombre d'article(s): " + totalArticle;
     pRecapNbArticle.setAttribute('class','col-8')
@@ -666,7 +666,7 @@ class Contact {
     this.lastName = surname;
     this.address = adress;
     this.city = city;
-    this.mail = mail;
+    this.email = mail;
   }
 }
 
@@ -676,7 +676,7 @@ class Contact {
 
 let pasDroitChiffre = /^([a-zA-Z- áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]){2,20}$/;
 let droitAuxChiffres = /^([a-zA-Z-  0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]){3,40}$/;
-let regexmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
+let regexmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 //---------- Au clic du bouton, la fonction de validation est appelée. Soit il y a une erreur dans quel cas une alerte est lancée, spécifiant sur quel champs le pb a été constaté
 //----------------------------- Soit les données sont au bon format, création de l'objet contact pour transmettre cette dernière au service web.
@@ -705,7 +705,7 @@ validationButon.onclick = function () {
   }
 
   let demandeContact = new Contact(name, surname, adress, city, mail);
-  let contact = JSON.parse(sessionStorage.getItem("Contact"));
+  let contact = JSON.parse(localStorage.getItem("Contact"));
 
   if (contact == null) {
     contact = [];
@@ -719,7 +719,7 @@ validationButon.onclick = function () {
     mail.match(regexmail)
   ) {
     contact.push(demandeContact);
-    sessionStorage.setItem("Contact", JSON.stringify(contact));
+    localStorage.setItem("Contact", JSON.stringify(contact));
     
     // console.log(JSON.stringify(commandeFinale));
     // console.log(commandeFinaleParse);
@@ -733,7 +733,7 @@ validationButon.onclick = function () {
        products : commandeFinale,
     };
 
-    let aEnv = {demandeContact, commandeFinale}
+
     lienValidation.href = "confirmation.html";
     send(data);
     console.log(data);
@@ -776,11 +776,13 @@ function send(data) {
           console.log('erreur transmission')
         }
       })
-    .then( (data) =>console.log(data))
+    .then( (data) => {
+      const orderId = data.orderId;
+      console.log(orderId);
+      localStorage.setItem('OrderId', orderId);
+    }
+    )
  
-
-   
-  
   }
   
   
