@@ -128,6 +128,7 @@ localStorage.removeItem('Contact')
 
 
 
+
 // ---------------------------------------------------------------- AJOUT DU STYLE DE LA PAGE
 
 //-----------------------------------------------  CREATION DU HEADER

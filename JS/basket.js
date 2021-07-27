@@ -734,7 +734,7 @@ validationButon.onclick = function () {
     };
 
 
-    lienValidation.href = "confirmation.html";
+    // lienValidation.href = "confirmation.html";
     send(data);
     console.log(data);
   }
@@ -778,10 +778,16 @@ function send(data) {
       })
     .then( (data) => {
       const orderId = data.orderId;
+      
       console.log(orderId);
+      
       localStorage.setItem('OrderId', orderId);
+     
     }
-    )
+    ).then(()=>{
+      window.location.href= "confirmation.html";
+    })
+    
  
   }
   
